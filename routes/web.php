@@ -31,6 +31,6 @@ $router->group(['prefix' => 'courses'], function() use ($router){
 
     $router->post('/', 'CourseController@store');
     $router->put('/{id}', 'CourseController@update');
-    $router->delete('/{id}', 'CourseController@delete');
+    $router->delete('/{id}', 'CourseController@destroy');
 
 });

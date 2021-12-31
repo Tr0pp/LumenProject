@@ -23,27 +23,45 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        return $this->course->find($id);
+        return $this->course->findOrFail($id);
     }
 
     public function store(Request $request): JsonResponse
     {
         $this->course->create($request->all());
 
-        return response()->json(
-            ['data' =>
-                ['message' => 'Curso criado com sucesso.']
+        return response()
+            ->json([
+                'data' => [
+                    'message' => 'Curso criado com sucesso!'
+                ]
             ]);
     }
 
-    public function update($id)
+    public function update($id, Request $request): JsonResponse
     {
+         $this->course->find($id)
+             ->update($request->all());
 
+        return response()
+            ->json([
+                'data' => [
+                    'message' => 'Curso atualizado com sucesso!'
+                ]
+            ]);
     }
 
-    public function delete($id)
+    public function destroy($id): JsonResponse
     {
+        $this->course->find($id)
+            ->deleteOrFail();
 
+        return response()
+            ->json([
+                'data' => [
+                    'message' => 'Curso removido com sucesso!'
+                ]
+            ]);
     }
 
 }
