@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,24 @@
 |
 */
 
+use Laravel\Lumen\Routing\Router;
+
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return "Primeira API Rest com {$router->app->version()}";
+});
+
+$router->group(['prefix' => 'courses'], function() use ($router){
+    /**
+     * Recurso: Curso (course)
+     * Endpoint: /courses (cursos)
+     * GET, POST, PUT/PATCH, DELETE
+     */
+
+    $router->get('/', 'CourseController@index');
+    $router->get('/{id}', 'CourseController@show');
+
+    $router->post('/', 'CourseController@store');
+    $router->put('/{id}', 'CourseController@update');
+    $router->delete('/{id}', 'CourseController@delete');
+
 });
